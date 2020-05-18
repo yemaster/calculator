@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vegetable Calculator</title>
+	<link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcdn.net/ajax/libs/antd/4.2.2/antd.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.css" rel="stylesheet">
+	<link href="main.css" rel="stylesheet">
+	<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/styles/tomorrow.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+</head>
+
+<body>
+	<ul class="ant-menu ant-menu-light ant-menu-root ant-menu-horizontal" direction="ltr" role="menu">
+		<strong class="ant-menu-item" role="menuitem">
+			Vegetable Calculator
+		</strong>
+		<li class="ant-menu-item ant-menu-item-selected" style="float:right" role="menuitem">
+			<a href="demo.html" rel="noopener noreferrer">
+				Demo
+			</a>
+		</li>
+		<li class="ant-menu-item" style="float:right" role="menuitem">
+			<a href="about.html" rel="noopener noreferrer">
+				About Project
+			</a>
+		</li>
+		<li class="ant-menu-item" style="float:right" role="menuitem">
+			<a href="index.html" rel="noopener noreferrer">
+				Home Page
+			</a>
+		</li>
+	</ul>
+	<div class="leftText">
+		<div class="ant-divider ant-divider-horizontal ant-divider-with-text ant-divider-with-text-left" role="separator">
+			<h3 class="ant-divider-inner-text">
+				Simple
+			</h3>
+		</div>
+	</div>
+	<div style="width: 100%">
+		<div class="calcpanel">
+			<div style="padding-top:5px;padding-left:10px;color:#888;border-bottom:1px solid rgba(0,0,0,0.2);">
+				<h3>Simple - VegeTable Calculator<h3>
+			</div>
+			<div style="margin: 12px 8px;">
+				<div class="Equals">
+					<div id="mainEqual">
+					</div>
+					<div id="mainAns">
+					</div>
+				</div>
+				<div class="keyBoard">
+					<div class="keyline button-5">
+						<button onclick="insertChar('7')">7</button>
+						<button onclick="insertChar('8')">8</button>
+						<button onclick="insertChar('9')">9</button>
+						<button class="blue" onclick="delChar()">DEL</button>
+						<button class="blue" onclick="delAll()">AC</button>
+					</div>
+					<div class="keyline button-5">
+						<button onclick="insertChar('4')">4</button>
+						<button onclick="insertChar('5')">5</button>
+						<button onclick="insertChar('6')">6</button>
+						<button onclick="insertChar('+')">+</button>
+						<button onclick="insertChar('-')">-</button>
+					</div>
+					<div class="keyline button-5">
+						<button onclick="insertChar('1')">1</button>
+						<button onclick="insertChar('2')">2</button>
+						<button onclick="insertChar('3')">3</button>
+						<button onclick="insertChar('*')" >×</button>
+						<button onclick="insertChar('/')">/</button>
+					</div>
+					<div class="keyline button-5">
+						<button onclick="insertChar('0')">0</button>
+						<button onclick="insertChar('00')">00</button>
+						<button onclick="insertChar('.')">.</button>
+						<button onclick="insertChar('Ans')">Ans</button>
+						<button onclick="calc()">=</button>
+					</div>
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+	<div class="leftText">
+		<div class="ant-divider ant-divider-horizontal ant-divider-with-text ant-divider-with-text-left" role="separator">
+			<h3 class="ant-divider-inner-text">
+				Console
+			</h3>
+		</div>
+	</div>
+	<div style="width: 100%">
+		<div class="calcpanel">
+			<div style="padding-top:5px;padding-left:10px;color:#888;border-bottom:1px solid rgba(0,0,0,0.2);">
+				<h3>Console - VegeTable Calculator<h3>
+			</div>
+			<div style="margin: 12px 8px;">
+				<pre><code class="javascript" id="mainConsole"></code></pre>
+				<form onsubmit='return runCMD()'>
+					input&gt;<input type=text id=textcmd placeholder=输入你的命令>
+				</form>
+				<br>
+			</div>
+		</div>
+	</div>
+	<div class="leftText">
+		<div class="ant-divider ant-divider-horizontal ant-divider-with-text ant-divider-with-text-left" role="separator">
+			<h3 class="ant-divider-inner-text">
+				Help
+			</h3>
+		</div>
+	</div>
+	<div style="width: 100%">
+		<div class="calcpanel">
+			<div style="padding-top:5px;padding-left:10px;color:#888;border-bottom:1px solid rgba(0,0,0,0.2);">
+				<h3>Help- VegeTable Calculator<h3>
+			</div>
+			<div style="margin: 15px 15px;">
+				<article class="ant-typography">
+					<h3 class="ant-typography">计算普通表达式</h3>
+					<div  class="ant-typography">您可以使用Simple输入表达式或者命令行输入表达式即可。就像这样<br><pre><code>1+1*1-1/1</code></pre></div>
+					<h3 class="ant-typography">计算定积分</h3>
+					<div  class="ant-typography">命令行用法：<pre><code>integral(f, st, ed, dx)</code></pre>其中f是被积函数(推荐匿名函数)，[st,ed]为被积区间，dx推荐1e-8<br>以下是积分源代码<pre><code class="javascript">function integral(f, st, ed, dx) {
+	var res=0, count=st;
+	while (count&lt;ed) {
+		res += f(count) * dx;
+		count += dx;
+	}
+	return res;
+}</code></pre>就像这样<br><pre><code>integral(function(x){return x;},1,2,1e-8)</code></pre></div>
+					<h3 class="ant-typography">计算导数</h3>
+					<div  class="ant-typography">命令行用法：<pre><code>derivative(f, x, dx)</code></pre>其中f是函数，x为取值，dx推荐1e-10<br>以下是积分源代码<pre><code class="javascript">function derivative(f, x, dx) {
+	var res=0;
+	res=(f(x+dx)-f(x))/dx;
+	return res;
+}</code></pre>就像这样<br><pre><code>derivative(function(x){return x;},1,1e-10)</code></pre></div>
+				</article>
+				<br>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/node-waves/0.7.6/waves.min.js"></script>
+	<script>
+var p1 = "", p2 = "";
+var ans = "", Ans = 0;
+function fuc(x) {
+	return x;
+}
+var consoleRes = "VegeTable Maths Console V1.0.0\nCopyRight (c) 2020-Now VT-dev\n";
+document.getElementById("mainConsole").innerHTML=consoleRes;
+hljs.initHighlightingOnLoad();
+function runCMD() {
+	try {
+		Ans = eval(document.getElementById("textcmd").value);
+	}
+	catch(err) {
+		Ans = "ERROR:"+err.message+"";
+	}
+	consoleRes+="input>"+document.getElementById("textcmd").value+"\n";
+	consoleRes+="output>"+Ans+"\n";
+	document.getElementById("mainConsole").innerHTML=consoleRes;
+	hljs.initHighlightingOnLoad();
+	document.getElementById("textcmd").value="";
+	return false;
+}
+function tranEqualToKaTeX(t) {
+	
+}
+function derivative(f, x, dx) {
+	var res=0;
+	res=(f(x+dx)-f(x))/dx;
+	return res;
+}
+function integral(f, st, ed, dx) {
+	var res=0, count=st;
+	while (count<ed) {
+		res += f(count) * dx;
+		count += dx;
+	}
+	return res;
+}
+function insertChar(char) {
+	p1 = p1 + char;
+	p2 = p2 + char;
+	katex.render(p2, document.getElementById("mainEqual"));
+}
+function delAll() {
+	p1 = "";
+	p2 = "";
+	katex.render(p2, document.getElementById("mainEqual"));
+}
+function delChar() {
+	if (p1.length<1) return;
+	p1= p1.substr(0, p1.length - 1);  
+	p2= p2.substr(0, p2.length - 1);  
+	katex.render(p2, document.getElementById("mainEqual"));
+}
+function calc(char) {
+	try {
+		ans = "=";
+		Ans = eval(p1);
+		ans = ans + Ans;
+		katex.render(ans, document.getElementById("mainAns"));
+	}
+	catch(err) {
+		ans = err.message;
+		document.getElementById("mainAns").innerHTML = ans;
+	}
+}
+	</script>
+</body>
+</html>
